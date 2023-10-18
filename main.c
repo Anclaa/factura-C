@@ -2,6 +2,17 @@
 #include <string.h>
 #include <ctype.h>
 
+char mayuscu(char a[]){
+    int i=0;
+    while(a[i]){
+    a[i]=toupper(a[i]);
+    i++;
+  }
+}
+
+int menuimpre();
+float sacarcantidad(char producto[]);
+float preciototal(int a, float b);
 
 int main(void) {
   float cl=0, cf=0, ce=0, cfa=0, cr=0;
@@ -14,47 +25,33 @@ int main(void) {
     printf("Ingrese su C.I: ");
     scanf("%s", &id);
   }while(strlen(id)!=10);
-  
+
   printf("Ingrese su nombre: ");
   scanf("%s", &name);
-  while(name[i]){
-    name[i]=toupper(name[i]);
-    i++;
-  }
+  mayuscu(name);
+
   while(com=='S'){
-  printf("\ncatálogo de productos, indique el producto a comprar \n");
-    printf("\t1.Llantas (Precio: $150)\n");
-    printf("\t2.Kit Pastillas de freno (Precio: $55)\n");
-    printf("\t3.Kit de embrague (Precio: $180)\n");
-    printf("\t4.Faro (Precio: $70)\n");
-    printf("\t5.Radiador (Precio: $120)\n");
-    printf("A continuacion digite el número del producto a comprar: ");
-    scanf("%d", &num);
+    int num = menuimpre();
     switch (num){
       case 1:
-        printf("Cantidad de llantas a comprar: ");
-        scanf("%f", &cl);
-        pl= 150*cl;
+        cl= sacarcantidad("Llantas");
+        pl= preciototal(150, cl);
         break;
       case 2:
-        printf("Cantidad de pastillas de freno a comprar: ");
-        scanf("%f", &cf);
-        pf= 55*cf;
+        cf = sacarcantidad("Kit pastillas de freno");
+        pf= preciototal(55, cf);
         break;
       case 3:
-        printf("Cantidad de kits embrague a comprar: ");
-        scanf("%f", &ce);
-        pe=180*ce;
+        ce= sacarcantidad("Kit de embrage");
+        pe= preciototal(180, ce);
         break;
       case 4:
-        printf("Cantidad de faros a comprar: ");
-        scanf("%f", &cfa);
-        pfa=70*cfa;
+        cfa = sacarcantidad("Faro");
+        pfa= preciototal(70, cfa);
         break;
       case 5:
-        printf("Cantidad de radiadores a comprar: ");
-        scanf("%f", &cr);
-        pr=120*cr;
+        cr = sacarcantidad("Radiador");
+        pr= preciototal(120, cf);
         break;
       default:
         printf("Opcion no reconocida: \n");
@@ -109,4 +106,30 @@ int main(void) {
   printf("\tTOTAL:\t\t\t%.2lf\n", ptt);
 
   return 0;
+}
+
+int menuimpre(){
+    int num= 0;
+    printf("\ncatálogo de productos, indique el producto a comprar \n");
+    printf("\t1.Llantas (Precio: $150)\n");
+    printf("\t2.Kit Pastillas de freno (Precio: $55)\n");
+    printf("\t3.Kit de embrague (Precio: $180)\n");
+    printf("\t4.Faro (Precio: $70)\n");
+    printf("\t5.Radiador (Precio: $120)\n");
+    printf("A continuacion digite el número del producto a comprar: ");
+    scanf("%d", &num);
+    return num;
+  }
+
+float sacarcantidad(char producto[]){
+  int cant=0;
+  printf("Cantidad del producto %s a comprar: ", producto);
+  scanf("%d", &cant);
+  return cant;
+}
+
+float preciototal(int a, float b){
+  double pret=0;
+  pret=a*b;
+  return pret;
 }
